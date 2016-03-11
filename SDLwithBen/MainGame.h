@@ -18,6 +18,9 @@ public:
 	void run();
 
 private:
+	//for fun
+	float _myPos[2];
+
 	void initSystems();
 	void initShaders();
 	void gameLoop();

@@ -10,6 +10,10 @@ MainGame::MainGame()
 	_screenWidth = 1024;
 	_screenHeight = 768;
 	_gameState = GameState::PLAY;
+
+	//for fun
+	_myPos[0] = 0.0;
+	_myPos[1] = 0.0;
 }
 
 MainGame::~MainGame()
@@ -21,7 +25,7 @@ void MainGame::run()
 	initSystems();
 
 	//_sprite.init(-0.75, -0.75, 0.75, 0.75);
-	_csprite.init(0.0, 0.0, 0.125);
+	//_csprite.init(0.0, 0.0, 0.125);
 	gameLoop();
 }
 
@@ -46,6 +50,25 @@ void MainGame::processInput()
 			break;
 		case SDL_MOUSEMOTION:
 			std::cout << evnt.motion.x << ", " << evnt.motion.y << std::endl;
+			break;
+		case SDL_KEYDOWN:
+			switch (evnt.key.keysym.sym)
+			{
+			case SDLK_w:
+				_myPos[1] += 0.02;
+				break;
+			case SDLK_d:
+				_myPos[0] += 0.02;
+				break;
+			case SDLK_s:
+				_myPos[1] -= 0.02;
+				break;
+			case SDLK_a:
+				_myPos[0] -= 0.02;
+				break;
+			default:
+				break;
+			}
 		default:
 			break;
 		}
@@ -61,6 +84,7 @@ void MainGame::drawGame()
 	_colorProgram.use();
 	
 	//_sprite.draw();
+	_csprite.init(_myPos[0], _myPos[1], 0.125);
 	_csprite.draw();
 
 	_colorProgram.unuse();
